@@ -9,22 +9,28 @@ namespace AoC24.Solutions.Day01;
 
 BenchmarkDotNet v0.14.0, Windows 10 (10.0.19045.5131/22H2/2022Update)
 11th Gen Intel Core i7-1185G7 3.00GHz, 1 CPU, 8 logical and 4 physical cores
-.NET SDK 8.0.404
-  [Host]     : .NET 8.0.11 (8.0.1124.51707), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
-  DefaultJob : .NET 8.0.11 (8.0.1124.51707), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+.NET SDK 9.0.100
+  [Host]   : .NET 8.0.11 (8.0.1124.51707), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  .NET 8.0 : .NET 8.0.11 (8.0.1124.51707), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  .NET 9.0 : .NET 9.0.0 (9.0.24.52809), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
 
 
-| Method  | Mean     | Error    | StdDev   | Median   | Gen0     | Gen1    | Allocated |
-|-------- |---------:|---------:|---------:|---------:|---------:|--------:|----------:|
-| Method1 | 363.0 us |  7.26 us | 16.23 us | 360.8 us |  63.4766 | 20.0195 | 391.83 KB |
-| Method2 | 672.0 us | 19.90 us | 58.37 us | 679.3 us | 129.8828 | 41.0156 |  798.1 KB |
-| Method3 | 230.5 us |  5.26 us | 14.91 us | 224.9 us |  45.4102 |  4.8828 | 280.57 KB |
+| Method  | Job      | Runtime  | Mean     | Error   | StdDev  | Gen0     | Gen1    | Allocated |
+|-------- |--------- |--------- |---------:|--------:|--------:|---------:|--------:|----------:|
+| Method1 | .NET 8.0 | .NET 8.0 | 351.6 us | 6.27 us | 5.56 us |  63.4766 | 20.0195 | 391.83 KB |
+| Method2 | .NET 8.0 | .NET 8.0 | 586.2 us | 9.85 us | 8.74 us | 128.9063 | 41.0156 |  798.1 KB |
+| Method3 | .NET 8.0 | .NET 8.0 | 208.7 us | 4.17 us | 4.96 us |  45.6543 |  4.8828 | 280.57 KB |
+| Method1 | .NET 9.0 | .NET 9.0 | 296.2 us | 4.82 us | 6.91 us |  56.1523 | 15.1367 | 344.62 KB |
+| Method2 | .NET 9.0 | .NET 9.0 | 547.8 us | 7.71 us | 7.92 us | 128.9063 | 33.2031 | 789.95 KB |
+| Method3 | .NET 9.0 | .NET 9.0 | 193.4 us | 3.85 us | 4.12 us |  45.6543 |  4.8828 | 280.62 KB |
 */
 
 [MemoryDiagnoser]
+[SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net80)]
+[SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net90)]
 public class Part1 : IAoCSolution
 {
-    const string FilePath = @"C:\dev\personal\AoC24\Input\0101.txt";
+    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0101.txt";
 
     public long GetResult() => Method1();
 

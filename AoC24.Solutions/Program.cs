@@ -1,12 +1,12 @@
-﻿using AoC24.Solutions;
-using AoC = AoC24.Solutions;
+﻿using AoC = AoC24.Solutions;
 
+Environment.SetEnvironmentVariable("AOC_HOME", @"C:\dev\personal\aoc2024", EnvironmentVariableTarget.Process);
 
 #if DEBUG
 
 
-Console.WriteLine(AoCSolutionFactory.GetResult<AoC.Day01.Part1>());
-Console.WriteLine(AoCSolutionFactory.GetResult<AoC.Day01.Part2>());
+Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day01.Part1>());
+Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day01.Part2>());
 
 #else
 

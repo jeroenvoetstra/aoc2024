@@ -5,7 +5,7 @@ namespace AoC24.Solutions.Day01;
 
 public class Part2 : IAoCSolution
 {
-    const string FilePath = @"..\..\..\..\Input\0101.txt";
+    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0101.txt";
 
     public long GetResult() => Method1();
 
