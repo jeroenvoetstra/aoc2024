@@ -5,8 +5,8 @@ Environment.SetEnvironmentVariable("AOC_HOME", @"C:\dev\personal\aoc2024", Envir
 #if DEBUG
 
 
-Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day02.Part1>());
-Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day02.Part2>());
+Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day03.Part1>());
+Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day03.Part2>());
 
 #else
 
