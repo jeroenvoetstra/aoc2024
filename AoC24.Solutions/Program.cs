@@ -1,16 +1,17 @@
-﻿using AoC = AoC24.Solutions;
+﻿using AoC24.Solutions;
+using CurrentDay = AoC24.Solutions.Day04;
 
 Environment.SetEnvironmentVariable("AOC_HOME", @"C:\dev\personal\aoc2024", EnvironmentVariableTarget.Process);
 
 #if DEBUG
 
 
-Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day03.Part1>());
-Console.WriteLine(AoC.AoCSolutionFactory.GetResult<AoC.Day03.Part2>());
+Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part1>());
+Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part2>());
 
 #else
 
-BenchmarkDotNet.Running.BenchmarkRunner.Run<AoC.Day03.Part1>();
+BenchmarkDotNet.Running.BenchmarkRunner.Run<CurrentDay.Part1>();
 
 #endif
 
