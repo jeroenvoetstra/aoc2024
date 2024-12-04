@@ -8,11 +8,10 @@ public partial class Part1 : IAoCSolution
     {
         var characterMatrix = File.ReadAllLines(FilePath).ToArray();
         var characterGrid = characterMatrix.SelectMany((line, y) => line.Select((c, x) => new CharPoint(c, new Vector(x, y)))).ToArray();
+        // Build predicate chain from back to front (X predicate will depend on the M one, M on A and so on.
         var sPredicate = new Func<CharPoint, CharPoint, CharPoint, CharPoint, bool>((x, m, a, s) =>
             s.Character == 'S'
-                && Distance(a, s) == 1
-                && Distance(m, s) == 2
-                && Distance(x, s) == 3
+                && Distance(a, s) == 1 && Distance(m, s) == 2 && Distance(x, s) == 3
                 && s.GetDirection(a) == a.GetDirection(m)
                 && a.GetDirection(m) == m.GetDirection(x)
             );
@@ -30,14 +29,15 @@ public partial class Part1 : IAoCSolution
             x.Character == 'X'
                 && characterGrid.Any((m) => mPredicate(x, m))
             );
+
+        // Get all X chars that participate and count the ones that start multiple matches after.
         var validXChars = characterGrid.Where(xPredicate).ToArray();
 
         var result = 0;
-        // Count overlapping Xs
         foreach (var x in validXChars)
         {
-            // Count all Ms that lead to As and finally to Ss, this will be enough as
-            // the words cannot bend
+            // Count all Ms that lead to As and finally to Ss. Counting Ms from
+            // the already overlapping Xs is enough as overlap cannot occur on both X and M simultaneously.
             result += characterGrid.Count((m) => mPredicate(x, m));
         }
 
