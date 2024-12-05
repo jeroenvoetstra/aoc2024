@@ -6,13 +6,15 @@ Environment.SetEnvironmentVariable("AOC_HOME", @"C:\dev\personal\aoc2024", Envir
 
 #if DEBUG
 
-
 Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part1>());
 Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part2>());
 
+#elif BENCHMARK
+
+BenchmarkDotNet.Running.BenchmarkRunner.Run<CurrentDay.Part1>();
+
 #else
 
-//BenchmarkDotNet.Running.BenchmarkRunner.Run<CurrentDay.Part1>();
 foreach (var type in Assembly.GetExecutingAssembly().GetTypes().OrderBy((type) => type.FullName))
 {
     if (type.GetInterfaces().Contains(typeof(IAoCSolution)))
