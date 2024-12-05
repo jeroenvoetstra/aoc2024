@@ -1,15 +1,20 @@
 ﻿namespace AoC24.Solutions.Day02;
 
-public class Part2 : IAoCSolution
+public class Part2(string filePath) : IAoCSolution
 {
     private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0201.txt";
+    private readonly string _filePath = filePath;
 
     private const int MinIncrement = 1;
     private const int MaxIncrement = 3;
 
+    public Part2()
+        : this(FilePath)
+    { }
+
     public long GetResult()
     {
-        var data = File.ReadAllLines(FilePath)
+        var data = File.ReadAllLines(_filePath)
             .Select((line) => line.Split(' ').Select((item) => Convert.ToInt32(item)).ToArray())
             .ToArray();
 

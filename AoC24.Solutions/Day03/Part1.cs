@@ -27,11 +27,16 @@ BenchmarkDotNet v0.14.0, Windows 10 (10.0.19045.5131/22H2/2022Update)
 [MemoryDiagnoser]
 [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net80)]
 [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net90)]
-public partial class Part1 : IAoCSolution
+public partial class Part1(string filePath) : IAoCSolution
 {
-    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0301.txt";
+    private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0301.txt";
+    private readonly string _filePath = filePath;
 
     private static readonly Regex MultiplyPattern = new Regex(@"((mul\((?<num1>\d+)\,(?<num2>\d+)\)))");
+
+    public Part1()
+        : this(FilePath)
+    { }
 
     public long GetResult() => AllOperationsWithRegularRegex();
 
@@ -42,7 +47,7 @@ public partial class Part1 : IAoCSolution
     [Benchmark]
     public long GetMuls()
     {
-        var content = File.ReadAllText(FilePath);
+        var content = File.ReadAllText(_filePath);
         var matches = MultiplyPattern.Matches(content);
 
         var result = 0L;
@@ -57,7 +62,7 @@ public partial class Part1 : IAoCSolution
         return result;
     }
 
-    [GeneratedRegex(@"(?<operation>[\w\']+)\((((?<args>\d+)\,?)*\))", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(?<operation>(mul|do|don't|select|why|when|what|where|who|from|how))\((((?<args>\d+)\,?)*\))")]
     private static partial Regex OperationPatternGenerated();
 
     /// <summary>
@@ -66,7 +71,7 @@ public partial class Part1 : IAoCSolution
     [Benchmark]
     public long AllOperationsWithGeneratedRegex()
     {
-        var content = File.ReadAllText(FilePath);
+        var content = File.ReadAllText(_filePath);
         var operations = new List<Operation>();
 
         var matches = OperationPatternGenerated().Matches(content);
@@ -92,7 +97,7 @@ public partial class Part1 : IAoCSolution
         return operations.Where((op) => op.Name == "mul" && op.Args!.Length > 1).Sum((op) => op.Args!.Aggregate((left, right) => left * right));
     }
 
-    private static readonly Regex OperationPattern = new Regex(@"(?<operation>[\w\']+)\((((?<args>\d+)\,?)*\))");
+    private static readonly Regex OperationPattern = new Regex($@"(?<operation>({string.Join("|", Operation.OperationTypes)}))\((((?<args>\d+)\,?)*\))");
 
     /// <summary>
     /// Method interpreting all instructions from the input, using a regular regex.
@@ -100,7 +105,7 @@ public partial class Part1 : IAoCSolution
     [Benchmark]
     public long AllOperationsWithRegularRegex()
     {
-        var content = File.ReadAllText(FilePath);
+        var content = File.ReadAllText(_filePath);
         var operations = new List<Operation>();
 
         var matches = OperationPattern.Matches(content);
@@ -128,7 +133,7 @@ public partial class Part1 : IAoCSolution
 
     private class Operation
     {
-        public static readonly string[] OperationTypes = ["mul", "do", "dont", "select", "why", "when", "what", "from", "who", "how", "where"];
+        public static readonly string[] OperationTypes = ["mul", "do", "don't", "select", "why", "when", "what", "from", "who", "how", "where"];
 
         public required string Name { get; set; }
         public int[]? Args { get; set; }

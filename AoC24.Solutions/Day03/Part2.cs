@@ -2,15 +2,20 @@
 
 namespace AoC24.Solutions.Day03;
 
-public class Part2 : IAoCSolution
+public class Part2(string filePath) : IAoCSolution
 {
-    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0301.txt";
+    private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0301.txt";
+    private readonly string _filePath = filePath;
 
     private static readonly Regex MultiplyPattern = new Regex(@"((mul\((?<num1>\d+)\,(?<num2>\d+)\))|((?<on>do\(\))|(?<off>don\'t\(\))))");
 
+    public Part2()
+        : this(FilePath)
+    { }
+
     public long GetResult()
     {
-        var content = File.ReadAllText(FilePath);
+        var content = File.ReadAllText(_filePath);
         var matches = MultiplyPattern.Matches(content);
 
         var result = 0L;

@@ -2,13 +2,18 @@
 
 namespace AoC24.Solutions.Day04;
 
-public partial class Part2 : IAoCSolution
+public partial class Part2(string filePath) : IAoCSolution
 {
-    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0401.txt";
+    private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0401.txt";
+    private readonly string _filePath = filePath;
+
+    public Part2()
+        : this(FilePath)
+    { }
 
     public long GetResult()
     {
-        var characterMatrix = File.ReadAllLines(FilePath).ToArray();
+        var characterMatrix = File.ReadAllLines(_filePath);
         var characterGrid = characterMatrix.SelectMany((line, y) => line.Select((c, x) => new CharPoint(c, new Vector(x, y)))).ToArray();
 
         var results = characterGrid
@@ -34,7 +39,7 @@ public partial class Part2 : IAoCSolution
                     // Solution: opposing corners cancel each other out when x and y are summed (e.g. (5, 3) and (3, 5) around (4, 4)),
                     // so we're looking for pairs that do not add to twice the sum of the center's position. Trust me, it checks out.
                     && a.Satellites.Where((sat) => sat.Character == 'M').Sum((sat) => sat.Position.X + sat.Position.Y) != (2 * (a.Center.Position.X + a.Center.Position.Y))
-                    // No need to check S as that is implied from the M check
+                // No need to check S as that is implied from the M check
                 )
             .ToArray();
 

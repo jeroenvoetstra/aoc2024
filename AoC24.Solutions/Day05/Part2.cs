@@ -1,12 +1,19 @@
-﻿namespace AoC24.Solutions.Day05;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 
-public partial class Part2 : IAoCSolution
+namespace AoC24.Solutions.Day05;
+
+public partial class Part2(string filePath) : IAoCSolution
 {
-    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0501.txt";
+    private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0501.txt";
+    private readonly string _filePath = filePath;
+
+    public Part2()
+        : this(FilePath)
+    { }
 
     public long GetResult()
     {
-        var input = File.ReadAllText(FilePath);
+        var input = File.ReadAllText(_filePath);
         var doubleNewLine = $"{Environment.NewLine}{Environment.NewLine}";
         var sectionSplitIndex = input.IndexOf(doubleNewLine);
         var orderingRulesText = input.Substring(0, sectionSplitIndex);

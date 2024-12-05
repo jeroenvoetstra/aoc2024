@@ -1,12 +1,17 @@
 ﻿namespace AoC24.Solutions.Day02;
 
-public class Part1 : IAoCSolution
+public class Part1(string filePath) : IAoCSolution
 {
-    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0201.txt";
+    private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0201.txt";
+    private readonly string _filePath = filePath;
+
+    public Part1()
+        : this(FilePath)
+    { }
 
     public long GetResult()
     {
-        var data = File.ReadAllLines(FilePath)
+        var data = File.ReadAllLines(_filePath)
             .Select((line) => line.Split(' ').Select((item) => Convert.ToInt32(item)).ToArray())
             .ToArray();
 

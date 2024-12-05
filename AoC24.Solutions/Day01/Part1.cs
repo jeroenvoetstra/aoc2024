@@ -28,9 +28,14 @@ BenchmarkDotNet v0.14.0, Windows 10 (10.0.19045.5131/22H2/2022Update)
 [MemoryDiagnoser]
 [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net80)]
 [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net90)]
-public class Part1 : IAoCSolution
+public class Part1(string filePath) : IAoCSolution
 {
-    static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0101.txt";
+    private static readonly string FilePath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0101.txt";
+    private readonly string _filePath = filePath;
+
+    public Part1()
+        : this(FilePath)
+    { }
 
     public long GetResult() => Method1();
 
@@ -40,7 +45,7 @@ public class Part1 : IAoCSolution
     [Benchmark]
     public long Method1()
     {
-        var pairs = File.ReadAllLines(FilePath)
+        var pairs = File.ReadAllLines(_filePath)
             .Where((line) => !string.IsNullOrWhiteSpace(line))
             .Select((line) => line.Split(' ').Where((item) => !string.IsNullOrEmpty(item)).Select((item) => Convert.ToInt32(item.Trim())).ToArray())
             .ToArray();
@@ -62,7 +67,7 @@ public class Part1 : IAoCSolution
     [Benchmark]
     public long Method2()
     {
-        var pairs = File.ReadAllLines(FilePath)
+        var pairs = File.ReadAllLines(_filePath)
             .Where((line) => !string.IsNullOrWhiteSpace(line))
             .Select((line) => Regex.Matches(line, @"\d+").Select((match) => Convert.ToInt32(match.Value)).ToArray())
             .ToArray();
@@ -86,7 +91,7 @@ public class Part1 : IAoCSolution
     [Benchmark]
     public long Method3()
     {
-        var fileContents = new ReadOnlySpan<byte>(File.ReadAllBytes(FilePath));
+        var fileContents = new ReadOnlySpan<byte>(File.ReadAllBytes(_filePath));
         // count lines
         var lineCount = fileContents.Count<byte>(0x0A);
         // if there's no line feed, add 1
