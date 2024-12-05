@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace AoC24.Solutions.Day05;
+﻿namespace AoC24.Solutions.Day05;
 
 public partial class Part2(string filePath) : IAoCSolution
 {
