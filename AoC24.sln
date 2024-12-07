@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AoC24.Solutions", "AoC24.So
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoC24.Tests", "AoC24.Tests\AoC24.Tests.csproj", "{3FAFE897-1ADA-48FE-901C-2B59564D6264}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoC2024.Visualization", "AoC2024.Visualization\AoC2024.Visualization.csproj", "{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Benchmark|Any CPU = Benchmark|Any CPU
@@ -26,6 +28,12 @@ Global
 		{3FAFE897-1ADA-48FE-901C-2B59564D6264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FAFE897-1ADA-48FE-901C-2B59564D6264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FAFE897-1ADA-48FE-901C-2B59564D6264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}.Benchmark|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}.Benchmark|Any CPU.Build.0 = Debug|Any CPU
+		{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C807E2D-7837-4E86-BB94-F6C9B28FF3BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

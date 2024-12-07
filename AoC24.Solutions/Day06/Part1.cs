@@ -1,4 +1,6 @@
-﻿namespace AoC24.Solutions.Day06;
+﻿using AoC24.Solutions.Day06.Models;
+
+namespace AoC24.Solutions.Day06;
 
 public partial class Part1(string filePath) : IAoCSolution
 {
@@ -9,9 +11,34 @@ public partial class Part1(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult()
+    public long GetResult() => Method1();
+
+    public long Method1()
     {
-        Console.WriteLine(File.Exists(_filePath));
-        return 0L;
+        var input = File.ReadAllLines(_filePath);
+
+        var guard = default(Guard);
+        var lab = new Laboratory(
+            input
+                .Select((line, y) =>
+                    line
+                        .Select((c, x) =>
+                        {
+                            if (Guard.GuardOrientations.ContainsKey(c))
+                                guard = new Guard(c, x, y);
+
+                            return new Tile(c, x, y);
+                        })
+                        .ToArray()
+                    )
+                .ToArray()
+            );
+
+        return guard != default ?
+            guard.GetRouteUntilOut(lab)
+                .Select((item) => (item.Tile.Position.X, item.Tile.Position.Y))
+                .Distinct()
+                .LongCount() :
+            0L;
     }
 }

@@ -1,11 +1,11 @@
-﻿using AoC24.Solutions.Day06;
+﻿using AoC24.Solutions.Day07;
 using Xunit;
 
 namespace AoC24.Tests;
 
-public class Day06Tests : UnitTestBase
+public class Day07Tests : UnitTestBase
 {
-    private static readonly string ExampleDataPath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0601.test.txt";
+    private static readonly string ExampleDataPath = $@"{Environment.GetEnvironmentVariable("AOC_HOME")}\Input\0701.test.txt";
 
     [Fact]
     public void Part1_WithExampleData()
@@ -14,7 +14,7 @@ public class Day06Tests : UnitTestBase
 
         var result = subject.GetResult();
 
-        Assert.Equal(41, result);
+        Assert.Equal(3749, result);
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class Day06Tests : UnitTestBase
 
         var result = subject.GetResult();
 
-        Assert.Equal(4973, result);
+        Assert.Equal(2664460013123, result);
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class Day06Tests : UnitTestBase
 
         var result = subject.GetResult();
 
-        Assert.Equal(0, result);
+        Assert.Equal(11387, result);
     }
 
     [Fact]
@@ -44,6 +44,6 @@ public class Day06Tests : UnitTestBase
 
         var result = subject.GetResult();
 
-        Assert.Equal(0, result);
+        Assert.Equal(426214131924213, result);
     }
 }

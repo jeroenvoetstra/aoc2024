@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="AoC2024.Visualization.Day06.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AoC2024.Visualization.Day06"
+             xmlns:models="clr-namespace:AoC2024.Visualization.Day06.Models"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="600"
+             >
+    <UserControl.Resources>
+        <local:ViewModel x:Key="ViewModel" />
+    </UserControl.Resources>
+    <DockPanel DataContext="{StaticResource ResourceKey=ViewModel}" LastChildFill="True">
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="150">
+            <TextBlock Text="Position"/>
+            <TextBlock Text="{Binding Path=CurrentPosition}"/>
+        </StackPanel>
+        <Viewbox>
+            <ItemsControl ItemsSource="{Binding Path=Grid}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="25" Height="25" BorderBrush="Gray" BorderThickness="0.5">
+                                        <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding}" Value="{x:Static models:TileState.Empty}">
+                                                            <Setter Property="Fill" Value="Transparent"/>
+                                                            <Setter Property="Width" Value="25"/>
+                                                            <Setter Property="Height" Value="25"/>
+                                                            <Setter Property="RadiusX" Value="0"/>
+                                                            <Setter Property="RadiusY" Value="0"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="{x:Static models:TileState.Obstacle}">
+                                                            <Setter Property="Fill" Value="Red"/>
+                                                            <Setter Property="Width" Value="20"/>
+                                                            <Setter Property="Height" Value="20"/>
+                                                            <Setter Property="RadiusX" Value="0"/>
+                                                            <Setter Property="RadiusY" Value="0"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="{x:Static models:TileState.TemporaryObstacle}">
+                                                            <Setter Property="Fill" Value="Orange"/>
+                                                            <Setter Property="Width" Value="20"/>
+                                                            <Setter Property="Height" Value="20"/>
+                                                            <Setter Property="RadiusX" Value="5"/>
+                                                            <Setter Property="RadiusY" Value="5"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="{x:Static models:TileState.Player}">
+                                                            <Setter Property="Fill" Value="Blue"/>
+                                                            <Setter Property="Width" Value="15"/>
+                                                            <Setter Property="Height" Value="15"/>
+                                                            <Setter Property="RadiusX" Value="7"/>
+                                                            <Setter Property="RadiusY" Value="7"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="{x:Static models:TileState.TemporaryPlayer}">
+                                                            <Setter Property="Fill" Value="LightBlue"/>
+                                                            <Setter Property="Width" Value="10"/>
+                                                            <Setter Property="Height" Value="10"/>
+                                                            <Setter Property="RadiusX" Value="5"/>
+                                                            <Setter Property="RadiusY" Value="5"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Viewbox>
+        <!--</ScrollViewer>-->
+    </DockPanel>
+</UserControl>
