@@ -34,11 +34,13 @@ public partial class Part1(string filePath) : IAoCSolution
                 .ToArray()
             );
 
-        return guard != default ?
-            guard.GetRouteUntilOut(lab)
-                .Select((item) => (item.Tile.Position.X, item.Tile.Position.Y))
-                .Distinct()
-                .LongCount() :
-            0L;
+        if (guard == default)
+            throw new InvalidOperationException("Where is the guard?");
+
+        return guard.GetRouteUntilOut(lab)
+            .Select((item) => (item.Tile.Position.X, item.Tile.Position.Y))
+            .Distinct()
+            .LongCount()
+            ;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace AoC24.Solutions.Day06.Models;
+﻿namespace AoC24.Solutions.Day06.Models;
 
 public class Laboratory
 {

@@ -35,10 +35,10 @@ public partial class Part2(string filePath) : IAoCSolution
             );
 
         if (guard == default)
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Where is the guard?");
 
         var (originPosition, originOrientation) = (guard.Position, guard.Orientation);
-        var originalRoute = new HashSet<Point>(guard!.GetRouteUntilOut(lab).ToArray().Skip(1).Select((item) => item.Tile.Position));
+        var originalRoute = new HashSet<Point>(guard.GetRouteUntilOut(lab).Skip(1).Select((item) => item.Tile.Position));
         var results = new HashSet<Point>();
         foreach (var position in originalRoute)
         {
