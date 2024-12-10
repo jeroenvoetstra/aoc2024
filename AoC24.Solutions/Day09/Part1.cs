@@ -62,6 +62,4 @@ public partial class Part1(string filePath) : IAoCSolution
 
         return result;
     }
-
-    private record DataBlock(byte Length, int Index, byte[] Data);
 }
