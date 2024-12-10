@@ -34,8 +34,7 @@ public class Day09Tests : UnitTestBase
 
         var result = subject.GetResult();
 
-        Assert.Equal(0, result);
-        //Assert.Equal(2858, result);
+        Assert.Equal(2858, result);
     }
 
     [Fact]
@@ -45,6 +44,6 @@ public class Day09Tests : UnitTestBase
 
         var result = subject.GetResult();
 
-        Assert.Equal(0, result);
+        Assert.Equal(6272188244509, result);
     }
 }
