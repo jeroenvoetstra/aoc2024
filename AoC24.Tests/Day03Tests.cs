@@ -13,39 +13,10 @@ public class Day03Tests : UnitTestBase
     {
         var subject = new Part1(ExampleData1Path);
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(161, result);
-    }
-
-    [Fact]
-    public void Part1_AdditionalMethods_GetMuls_WithExampleData()
-    {
-        var subject = new Part1(ExampleData1Path);
-
-        var result = subject.GetMuls();
-
-        Assert.Equal(161, result);
-    }
-
-    [Fact]
-    public void Part1_AdditionalMethods_AllOperationsWithGeneratedRegex_WithExampleData()
-    {
-        var subject = new Part1(ExampleData1Path);
-
-        var result = subject.AllOperationsWithGeneratedRegex();
-
-        Assert.Equal(161, result);
-    }
-
-    [Fact]
-    public void Part1_AdditionalMethods_AllOperationsWithRegularRegex_WithExampleData()
-    {
-        var subject = new Part1(ExampleData1Path);
-
-        var result = subject.AllOperationsWithRegularRegex();
-
-        Assert.Equal(161, result);
+        Assert.Equal(161, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -53,39 +24,10 @@ public class Day03Tests : UnitTestBase
     {
         var subject = new Part1();
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(163931492, result);
-    }
-
-    [Fact]
-    public void Part1_AdditionalMethods_GetMuls_WithRealData()
-    {
-        var subject = new Part1();
-
-        var result = subject.GetMuls();
-
-        Assert.Equal(163931492, result);
-    }
-
-    [Fact]
-    public void Part1_AdditionalMethods_AllOperationsWithGeneratedRegex_WithRealData()
-    {
-        var subject = new Part1();
-
-        var result = subject.AllOperationsWithGeneratedRegex();
-
-        Assert.Equal(163931492, result);
-    }
-
-    [Fact]
-    public void Part1_AdditionalMethods_AllOperationsWithRegularRegex_WithRealData()
-    {
-        var subject = new Part1();
-
-        var result = subject.AllOperationsWithRegularRegex();
-
-        Assert.Equal(163931492, result);
+        Assert.Equal(163931492, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -93,9 +35,10 @@ public class Day03Tests : UnitTestBase
     {
         var subject = new Part2(ExampleData2Path);
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(48, result);
+        Assert.Equal(48, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -103,8 +46,9 @@ public class Day03Tests : UnitTestBase
     {
         var subject = new Part2();
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(76911921, result);
+        Assert.Equal(76911921, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 }

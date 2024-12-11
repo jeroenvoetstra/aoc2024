@@ -12,9 +12,10 @@ public class Day10Tests : UnitTestBase
     {
         var subject = new Part1(ExampleDataPath);
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(36, result);
+        Assert.Equal(36, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -22,9 +23,10 @@ public class Day10Tests : UnitTestBase
     {
         var subject = new Part1();
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(789, result);
+        Assert.Equal(789, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -32,9 +34,10 @@ public class Day10Tests : UnitTestBase
     {
         var subject = new Part2(ExampleDataPath);
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(81, result);
+        Assert.Equal(81, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -42,8 +45,9 @@ public class Day10Tests : UnitTestBase
     {
         var subject = new Part2();
 
-        var result = subject.GetResult();
+        var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(1735, result);
+        Assert.Equal(1735, operation.Result);
+        AssertWithinTimeLimit(operation);
     }
 }
