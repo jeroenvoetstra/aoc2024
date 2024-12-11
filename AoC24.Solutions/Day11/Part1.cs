@@ -43,7 +43,7 @@ public partial class Part1(string filePath) : IAoCSolution
         var cache = new Dictionary<string, long>();
         foreach (var item in items)
         {
-            result += GetItems([item], 0, 25, cache).Sum();
+            result += GetItemsOptimized([item], 0, 25, cache).Sum();
         }
 
         return result;
@@ -57,7 +57,7 @@ public partial class Part1(string filePath) : IAoCSolution
         var result = 0L;
         foreach (var item in items)
         {
-            result += GetItemsUnOptimized([item], 0, 25).Count();
+            result += GetItemsUnoptimized([item], 0, 25).Count();
         }
 
         return result;
@@ -78,7 +78,7 @@ public partial class Part1(string filePath) : IAoCSolution
             waitHandles.Add(wait);
             ThreadPool.QueueUserWorkItem((state) =>
             {
-                var r = GetItems([item], 0, 25, cache).Sum();
+                var r = GetItemsOptimized([item], 0, 25, cache).Sum();
                 lock (sync)
                 {
                     result += r;
@@ -105,7 +105,7 @@ public partial class Part1(string filePath) : IAoCSolution
             waitHandles.Add(wait);
             ThreadPool.QueueUserWorkItem((state) =>
             {
-                var r = GetItemsUnOptimized([item], 0, 25).Count();
+                var r = GetItemsUnoptimized([item], 0, 25).Count();
                 lock (sync)
                 {
                     result += r;
@@ -118,7 +118,7 @@ public partial class Part1(string filePath) : IAoCSolution
         return result;
     }
 
-    internal static IEnumerable<long> GetItems(IEnumerable<string> items, int iteration, int maxIterations, IDictionary<string, long> cache)
+    internal static IEnumerable<long> GetItemsOptimized(IEnumerable<string> items, int iteration, int maxIterations, IDictionary<string, long> cache)
     {
         if (iteration >= maxIterations)
         {
@@ -154,7 +154,7 @@ public partial class Part1(string filePath) : IAoCSolution
                         nextIteration = [(Convert.ToInt64(item) * 2024).ToString()];
                     }
 
-                    var result = GetItems(nextIteration, iteration + 1, maxIterations, cache).Sum();
+                    var result = GetItemsOptimized(nextIteration, iteration + 1, maxIterations, cache).Sum();
                     // Cache so if we run into this instance again we can swiftly return it.
                     cache[cacheKey] = result;
                     yield return result;
@@ -163,7 +163,7 @@ public partial class Part1(string filePath) : IAoCSolution
         }
     }
 
-    internal static IEnumerable<string> GetItemsUnOptimized(IEnumerable<string> items, int iteration, int maxIterations)
+    internal static IEnumerable<string> GetItemsUnoptimized(IEnumerable<string> items, int iteration, int maxIterations)
     {
         if (iteration >= maxIterations)
         {
@@ -193,7 +193,7 @@ public partial class Part1(string filePath) : IAoCSolution
                     nextIteration = [(Convert.ToInt64(item) * 2024).ToString()];
                 }
 
-                foreach (var next in GetItemsUnOptimized(nextIteration, iteration + 1, maxIterations))
+                foreach (var next in GetItemsUnoptimized(nextIteration, iteration + 1, maxIterations))
                 {
                     yield return next;
                 }

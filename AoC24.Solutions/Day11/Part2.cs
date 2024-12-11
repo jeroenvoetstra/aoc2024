@@ -11,7 +11,7 @@ public partial class Part2(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult() => MultithreadingOptimized();
+    public long GetResult() => Optimized();
 
     public long Optimized()
     {
@@ -21,7 +21,7 @@ public partial class Part2(string filePath) : IAoCSolution
         var cache = new Dictionary<string, long>();
         foreach (var item in items)
         {
-            result += Part1.GetItems([item], 0, 75, cache).Sum();
+            result += Part1.GetItemsOptimized([item], 0, 75, cache).Sum();
         }
 
         return result;
@@ -39,7 +39,7 @@ public partial class Part2(string filePath) : IAoCSolution
         {
             var thread = new Thread(() =>
             {
-                var r = Part1.GetItems([item], 0, 75, cache).Sum();
+                var r = Part1.GetItemsOptimized([item], 0, 75, cache).Sum();
                 lock (sync)
                 {
                     result += r;

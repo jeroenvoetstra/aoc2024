@@ -37,7 +37,7 @@ public class Part1(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult() => Method1();
+    public long GetResult() => Method3();
 
     /// <summary>
     /// Basic split on space character per line, then order and calculate result.

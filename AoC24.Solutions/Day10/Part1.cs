@@ -1,5 +1,6 @@
 ﻿using AoC24.Solutions.Day10.Models;
 using BenchmarkDotNet.Attributes;
+using System.Linq;
 
 namespace AoC24.Solutions.Day10;
 
@@ -34,12 +35,14 @@ public partial class Part1(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult() => Method1();
+    public long GetResult() => Method3();
 
     // Depth-first search
     public long Method1() => Dfs().Distinct().Count();
     // Breadth-first search
     public long Method2() => Bfs().Distinct().Count();
+    // Depth-first search, optimized
+    public long Method3() => DfsOptimized().Distinct().Count();
 
     [Benchmark]
     public List<(Point, Point)> Dfs()
@@ -80,6 +83,49 @@ public partial class Part1(string filePath) : IAoCSolution
         }
 
         return results;
+    }
+
+    [Benchmark]
+    public IEnumerable<(Point, Point)> DfsOptimized()
+    {
+        var grid = File.ReadAllLines(_filePath)
+            .Select((line, y) => line.Select((c, x) => new GridTile(new Point(x, y), Convert.ToByte(c.ToString()))).ToArray())
+            .ToArray();
+
+        var startingPoints = grid.SelectMany((item) => item).Where((item) => item.Height == 0).ToArray();
+        var width = grid[0].Length;
+        var height = grid.Length;
+
+        foreach (var startingPoint in startingPoints)
+        {
+            var frontier = new Stack<GridTile>([startingPoint]);
+            while (frontier.Count > 0)
+            {
+                var current = frontier.Pop();
+                var adjacentPositions = new List<GridTile>();
+                if (current.Position.X > 0)
+                    adjacentPositions.Add(grid[current.Position.Y][current.Position.X - 1]);
+                if (current.Position.X < (width - 1))
+                    adjacentPositions.Add(grid[current.Position.Y][current.Position.X + 1]);
+                if (current.Position.Y > 0)
+                    adjacentPositions.Add(grid[current.Position.Y - 1][current.Position.X]);
+                if (current.Position.Y < (height - 1))
+                    adjacentPositions.Add(grid[current.Position.Y + 1][current.Position.X]);
+
+                foreach (var adjacent in adjacentPositions.Where((item) => item.Height == current.Height + 1))
+                {
+                    if (adjacent.Height != 9)
+                    {
+                        frontier.Push(adjacent);
+                    }
+                    else
+                    {
+                        // Reached an endpoint
+                        yield return (startingPoint.Position, adjacent.Position);
+                    }
+                }
+            }
+        }
     }
 
     [Benchmark]
