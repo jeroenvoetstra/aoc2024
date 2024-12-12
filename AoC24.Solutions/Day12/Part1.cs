@@ -9,7 +9,9 @@ public partial class Part1(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult()
+    public long GetResult() => Method1();
+
+    public long Method1()
     {
         var nodeLookup = File.ReadLines(_filePath)
             .SelectMany((line, y) => line.Select((c, x) => new GridTile(c, new Vector(x, y))).ToArray())
@@ -75,6 +77,12 @@ public partial class Part1(string filePath) : IAoCSolution
         });
 
         return result;
+    }
+
+    public long Method2()
+    {
+        // TODO: Apply improvement from part 2
+        return Method1();
     }
 
     private static IEnumerable<GridTile> GetConnectedNodes(GridTile input, HashSet<Vector> visited)
