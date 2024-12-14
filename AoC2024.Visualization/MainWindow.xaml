@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AoC2024.Visualization"
         xmlns:day06="clr-namespace:AoC2024.Visualization.Day06"
+        xmlns:day14="clr-namespace:AoC2024.Visualization.Day14"
         mc:Ignorable="d"
         Title="AoC"
         Width="800" Height="800" WindowState="Maximized">
     <Grid>
         <TabControl>
-            <TabItem Header="Day 6">
-                <day06:View />
+            <TabItem Header="Day 14" IsSelected="True">
+                <day14:View />
             </TabItem>
+            <!--<TabItem Header="Day 6">
+                <day06:View />
+            </TabItem>-->
         </TabControl>
     </Grid>
 </Window>

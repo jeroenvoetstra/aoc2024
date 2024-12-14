@@ -12,4 +12,16 @@
     <ProjectReference Include="..\AoC24.Solutions\AoC24.Solutions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Day14\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Day14\View.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

@@ -33,7 +33,7 @@ public abstract class ViewModelBase : NotifyPropertyChanged
 
     protected void Synchronize(Action action)
     {
-        _synchronizationContext.Post(new SendOrPostCallback((_) => action()), null);
+        _synchronizationContext.Send(new SendOrPostCallback((_) => action()), null);
     }
 
     protected TViewModel RegisterChild<TViewModel>(Func<TViewModel> viewModelFactory)
