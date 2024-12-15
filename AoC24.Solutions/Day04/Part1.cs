@@ -9,7 +9,9 @@ public partial class Part1(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult()
+    public long GetResult() => Method2();
+
+    public long Method1()
     {
         var characterMatrix = File.ReadAllLines(_filePath);
         var characterGrid = characterMatrix.SelectMany((line, y) => line.Select((c, x) => new CharPoint(c, new Vector(x, y)))).ToArray();
@@ -44,6 +46,44 @@ public partial class Part1(string filePath) : IAoCSolution
             // Count all Ms that lead to As and finally to Ss. Counting Ms from
             // the already overlapping Xs is enough as overlap cannot occur on both X and M simultaneously.
             result += characterGrid.Count((m) => mPredicate(x, m));
+        }
+
+        return result;
+    }
+
+    public long Method2()
+    {
+        var characterMatrix = File.ReadAllLines(_filePath)
+            .Select((line) => line.Select((c) => c).ToArray()).ToArray();
+
+        var width = characterMatrix[0].Length;
+        var height = characterMatrix.Length;
+
+        var result = 0L;
+        for (var y = 0; y < height; y++)
+        {
+            for (var x = 0; x < width; x++)
+            {
+                if (characterMatrix[y][x] == 'X')
+                {
+                    if (y >= 3 && x >= 3 && characterMatrix[y - 1][x - 1] == 'M' && y >= 3 && x >= 3 && characterMatrix[y - 2][x - 2] == 'A' && y >= 3 && x >= 3 && characterMatrix[y - 3][x - 3] == 'S')
+                        result++;
+                    if (y >= 3 && characterMatrix[y - 1][x] == 'M' && y >= 3 && characterMatrix[y - 2][x] == 'A' && y >= 3 && characterMatrix[y - 3][x] == 'S')
+                        result++;
+                    if (y >= 3 && x < (width - 3) && characterMatrix[y - 1][x + 1] == 'M' && y >= 3 && x < (width - 3) && characterMatrix[y - 2][x + 2] == 'A' && y >= 3 && x < (width - 3) && characterMatrix[y - 3][x + 3] == 'S')
+                        result++;
+                    if (y < (height - 3) && x >= 3 && characterMatrix[y + 1][x - 1] == 'M' && y < (height - 3) && x >= 3 && characterMatrix[y + 2][x - 2] == 'A' && y < (height - 3) && x >= 3 && characterMatrix[y + 3][x - 3] == 'S')
+                        result++;
+                    if (y < (height - 3) && characterMatrix[y + 1][x] == 'M' && y < (height - 3) && characterMatrix[y + 2][x] == 'A' && y < (height - 3) && characterMatrix[y + 3][x] == 'S')
+                        result++;
+                    if (y < (height - 3) && x < (width - 3) && characterMatrix[y + 1][x + 1] == 'M' && y < (height - 3) && x < (width - 3) && characterMatrix[y + 2][x + 2] == 'A' && y < (height - 3) && x < (width - 3) && characterMatrix[y + 3][x + 3] == 'S')
+                        result++;
+                    if (x >= 3 && characterMatrix[y][x - 1] == 'M' && x >= 3 && characterMatrix[y][x - 2] == 'A' && x >= 3 && characterMatrix[y][x - 3] == 'S')
+                        result++;
+                    if (x < (width - 3) && characterMatrix[y][x + 1] == 'M' && x < (width - 3) && characterMatrix[y][x + 2] == 'A' && x < (width - 3) && characterMatrix[y][x + 3] == 'S')
+                        result++;
+                }
+            }
         }
 
         return result;

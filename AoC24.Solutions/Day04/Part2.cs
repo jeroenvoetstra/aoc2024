@@ -11,7 +11,9 @@ public partial class Part2(string filePath) : IAoCSolution
         : this(FilePath)
     { }
 
-    public long GetResult()
+    public long GetResult() => Method2();
+
+    public long Method1()
     {
         var characterMatrix = File.ReadAllLines(_filePath);
         var characterGrid = characterMatrix.SelectMany((line, y) => line.Select((c, x) => new CharPoint(c, new Vector(x, y)))).ToArray();
@@ -44,5 +46,41 @@ public partial class Part2(string filePath) : IAoCSolution
             .ToArray();
 
         return results.Length;
+    }
+
+    public long Method2()
+    {
+        var characterMatrix = File.ReadAllLines(_filePath)
+            .Select((line) => line.Select((c) => c).ToArray()).ToArray();
+
+        var characterPositionHashSet = new HashSet<(int x, int y, char c)>(characterMatrix.SelectMany((line, y) => line.Select((c, x) => (x, y, c))));
+
+        var width = characterMatrix[0].Length;
+        var height = characterMatrix.Length;
+
+        var result = 0L;
+        for (var y = 0; y < height; y++)
+        {
+            for (var x = 0; x < width; x++)
+            {
+                if (characterMatrix[y][x] == 'A')
+                {
+                    if ((characterPositionHashSet.Contains((x - 1, y - 1, 'M')) && characterPositionHashSet.Contains((x + 1, y - 1, 'M'))
+                            && characterPositionHashSet.Contains((x - 1, y + 1, 'S')) && characterPositionHashSet.Contains((x + 1, y + 1, 'S')))
+                        || (characterPositionHashSet.Contains((x - 1, y - 1, 'S')) && characterPositionHashSet.Contains((x + 1, y - 1, 'M'))
+                            && characterPositionHashSet.Contains((x - 1, y + 1, 'S')) && characterPositionHashSet.Contains((x + 1, y + 1, 'M')))
+                        || (characterPositionHashSet.Contains((x - 1, y - 1, 'M')) && characterPositionHashSet.Contains((x + 1, y - 1, 'S'))
+                            && characterPositionHashSet.Contains((x - 1, y + 1, 'M')) && characterPositionHashSet.Contains((x + 1, y + 1, 'S')))
+                        || (characterPositionHashSet.Contains((x - 1, y - 1, 'S')) && characterPositionHashSet.Contains((x + 1, y - 1, 'S'))
+                            && characterPositionHashSet.Contains((x - 1, y + 1, 'M')) && characterPositionHashSet.Contains((x + 1, y + 1, 'M')))
+                        )
+                    {
+                        result++;
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }
