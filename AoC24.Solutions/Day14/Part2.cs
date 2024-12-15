@@ -44,11 +44,12 @@ public partial class Part2(string filePath) : IAoCSolution
             .Select((item) => item!)
             .ToArray();
 
-        for (var i = 1; i < 10000; i++)
+        for (var i = 1; i < Width * Height; i++)
         {
             var currentSet = GetRobotsInPositionAfter(robots, i);
             var visited = new HashSet<Vector>();
             var biggestGroup = currentSet.Max((item) => GetGroupRecursive(currentSet, visited, item).Count());
+            Console.WriteLine(biggestGroup);
             if (biggestGroup > Threshold)
                 return i;
         }
@@ -66,9 +67,9 @@ public partial class Part2(string filePath) : IAoCSolution
 
     private IEnumerable<Vector> GetGroupRecursive(HashSet<Vector> positions, HashSet<Vector> visited, Vector node)
     {
-        visited.Add(node);
         if (!visited.Contains(node))
         {
+            visited.Add(node);
             yield return node;
 
             if (node.X > 0 && positions.Contains(new Vector(node.X - 1, node.Y)))
@@ -102,6 +103,7 @@ public partial class Part2(string filePath) : IAoCSolution
     {
         public static Vector operator +(Vector left, Vector right) => new Vector(left.X + right.X, left.Y + right.Y);
         public static Vector operator -(Vector left, Vector right) => new Vector(left.X - right.X, left.Y - right.Y);
+        public static Vector operator *(int left, Vector right) => new Vector(left * right.X, left * right.Y);
     }
 
     private class Robot(Vector position, Vector velocity)

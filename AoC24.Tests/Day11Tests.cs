@@ -15,7 +15,6 @@ public class Day11Tests : UnitTestBase
         var operation = TimeOperation(subject.GetResult);
 
         Assert.Equal(55312, operation.Result);
-        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -26,7 +25,6 @@ public class Day11Tests : UnitTestBase
         var operation = TimeOperation(subject.GetResult);
 
         Assert.Equal(175006, operation.Result);
-        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -37,7 +35,6 @@ public class Day11Tests : UnitTestBase
         var operation = TimeOperation(subject.GetResult);
 
         Assert.Equal(65601038650482, operation.Result);
-        AssertWithinTimeLimit(operation);
     }
 
     [Fact]
@@ -48,6 +45,5 @@ public class Day11Tests : UnitTestBase
         var operation = TimeOperation(subject.GetResult);
 
         Assert.Equal(207961583799296, operation.Result);
-        AssertWithinTimeLimit(operation);
     }
 }

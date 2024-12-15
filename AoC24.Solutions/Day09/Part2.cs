@@ -28,7 +28,7 @@ public partial class Part2(string filePath) : IAoCSolution
                 })
                 .ToArray();
 
-            var dataBlocks = metaData.Where((item) => item.Type == 0).ToList();
+            var dataBlocks = metaData.Where((item) => item.Type == 0).ToDictionary((item) => item.Id);
             var data = new List<int>();
             foreach (var item in metaData)
             {
@@ -36,10 +36,10 @@ public partial class Part2(string filePath) : IAoCSolution
                 var isEmpty = item.Type == 1;
                 if (isData)
                 {
-                    if (dataBlocks.Contains(item))
+                    if (dataBlocks.ContainsKey(item.Id))
                     {
                         data.AddRange(item.Data);
-                        dataBlocks.Remove(item);
+                        dataBlocks.Remove(item.Id);
                     }
                     // A hole appeared here by a previous move
                     else
@@ -51,15 +51,18 @@ public partial class Part2(string filePath) : IAoCSolution
                 if (isEmpty)
                 {
                     var freeSpace = item.Length;
-                    while (freeSpace > 0 && dataBlocks.Any((item) => item.Type == 0 && item.Length <= freeSpace))
+                    var keys = dataBlocks.Keys.ToList();
+                    while (freeSpace > 0 && dataBlocks.Any((item) => item.Value.Type == 0 && item.Value.Length <= freeSpace))
                     {
                         for (var i = dataBlocks.Count - 1; i >= 0; i--)
                         {
-                            if (dataBlocks[i].Length <= freeSpace)
+                            var key = keys[i];
+                            if (dataBlocks[key].Length <= freeSpace)
                             {
-                                freeSpace -= dataBlocks[i].Length;
-                                data.AddRange(dataBlocks[i].Data);
-                                dataBlocks.Remove(dataBlocks[i]);
+                                freeSpace -= dataBlocks[key].Length;
+                                data.AddRange(dataBlocks[key].Data);
+                                dataBlocks.Remove(dataBlocks[key].Id);
+                                keys.Remove(key);
                                 break;
                             }
                         }
