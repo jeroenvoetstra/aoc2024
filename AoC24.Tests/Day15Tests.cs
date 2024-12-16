@@ -35,7 +35,7 @@ public class Day15Tests : UnitTestBase
 
         var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(0, operation.Result);
+        Assert.Equal(9021, operation.Result);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class Day15Tests : UnitTestBase
 
         var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(0, operation.Result);
+        Assert.Equal(618, operation.Result);
     }
 
     [Fact]
@@ -55,6 +55,6 @@ public class Day15Tests : UnitTestBase
 
         var operation = TimeOperation(subject.GetResult);
 
-        Assert.Equal(0, operation.Result);
+        Assert.Equal(1554058, operation.Result);
     }
 }
