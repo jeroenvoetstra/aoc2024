@@ -1,13 +1,13 @@
 ﻿using AoC24.Solutions;
 using System.Reflection;
-using CurrentDay = AoC24.Solutions.Day15;
+using CurrentDay = AoC24.Solutions.Day17;
 
 Environment.SetEnvironmentVariable("AOC_HOME", @"C:\dev\personal\aoc2024", EnvironmentVariableTarget.Process);
 
 #if DEBUG
 
 
-Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part1>());
+Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part1, string>());
 Console.WriteLine(AoCSolutionFactory.GetResult<CurrentDay.Part2>());
 
 #elif BENCHMARK
