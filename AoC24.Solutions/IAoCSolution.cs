@@ -1,6 +1,9 @@
 ﻿namespace AoC24.Solutions;
 
-public interface IAoCSolution
+public interface IAoCSolution<T>
 {
-    long GetResult();
+    T GetResult();
 }
+
+public interface IAoCSolution : IAoCSolution<long>
+{ }
